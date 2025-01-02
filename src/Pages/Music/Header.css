@@ -1,0 +1,54 @@
+/* src/components/Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #2e2e2e;
+    color: white;
+  }
+  
+  .header-left {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .search-bar {
+    padding: 8px;
+    width: 250px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  

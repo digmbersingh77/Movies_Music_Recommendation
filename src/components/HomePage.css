@@ -1,0 +1,46 @@
+.app{
+  background: linear-gradient(#2d3138,#0056b3,#2d3138);
+}
+.buttons-container {
+    display: flex;
+    justify-content: center; /* Align buttons horizontally in the center */
+    gap: 20px; /* Add space between the buttons */
+    margin-top: 200px; /* Optional: adds some margin above the buttons */
+  }
+  
+  /* Button styling */
+  .button {
+    padding: 10px 20px;
+    font-size: 25px;
+    background-color: #2d3138; 
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0px 50px;
+  }
+  /* SignInButton.css */
+  
+  .sign-in-button {
+    position: fixed; /* Position fixed to stay in place on scroll */
+    top: 20px; /* Adjust vertical distance from the top */
+    right: 20px; /* Adjust horizontal distance from the right edge */
+    padding: 10px 20px;
+    background-color: #007BFF; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sign-in-button:hover {
+    background-color: #0056b3; /* Darker blue when hovered */
+  }
+  
+  /* Hover effect */
+  .button:hover {
+    background-color: #b9c2b9;
+  }

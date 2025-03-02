@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
 import SignIn from './Pages/SignIn/SignIn';
@@ -18,31 +18,33 @@ function App() {
 
 function AppWithNavigate() {
   const navigate = useNavigate();
+  const location = useLocation(); // ✅ Track the current page
+  const [user, setUser] = React.useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+
       if (user) {
-        // User is logged in, navigate to HomePage if the current path is SignIn
-        if (window.location.pathname === "/SignIn") {
-          navigate('/HomePage', { replace: true });
+        if (location.pathname === "/SignIn") {
+          navigate("/", { replace: true }); // ✅ Redirect to home after login
         }
       } else {
-        // User is not logged in, navigate to SignIn if the current path is not SignIn
-        if (window.location.pathname !== "/SignIn") {
-          navigate('/SignIn', { replace: true }); // Changed to navigate to SignIn when user is not logged in
+        if (location.pathname !== "/SignIn") {
+          navigate("/SignIn", { replace: true }); // ✅ Redirect to SignIn if not logged in
         }
       }
     });
 
     return () => unsubscribe();
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/SignIn" element={<SignIn />} />
-      <Route path="/Movies" element={<Movies />} />
-      <Route path="/Music" element={<Music />} />
+      <Route path="/" element={user ? <HomePage /> : <Navigate to="/SignIn" />} />
+      <Route path="/SignIn" element={user ? <Navigate to="/" /> : <SignIn />} />
+      <Route path="/Movies" element={user ? <Movies /> : <Navigate to="/SignIn" />} />
+      <Route path="/Music" element={user ? <Music /> : <Navigate to="/SignIn" />} />
     </Routes>
   );
 }

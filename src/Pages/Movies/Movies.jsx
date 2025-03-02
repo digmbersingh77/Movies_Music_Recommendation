@@ -7,7 +7,7 @@ import play_icon from '../../Assets/play_icon.png'
 import info_icon from '../../Assets/info_icon.png'
 import TitleCards from '../../components/TitleCards/TitleCards'
 import Footer from '../../components/Footer/Footer'
-import GenrePopup from './MoviesPopup';
+import GenrePopup from './GenrePopup';
 
 const Movies = () => {
   const [showPopup, setShowPopup] = useState(true);

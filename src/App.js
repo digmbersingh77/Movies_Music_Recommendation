@@ -42,6 +42,7 @@ function AppWithNavigate() {
   return (
     <Routes>
       <Route path="/" element={user ? <HomePage /> : <Navigate to="/SignIn" />} />
+      {/* <Route path="/signin" element={<SignIn />} /> */}
       <Route path="/SignIn" element={user ? <Navigate to="/" /> : <SignIn />} />
       <Route path="/Movies" element={user ? <Movies /> : <Navigate to="/SignIn" />} />
       <Route path="/Music" element={user ? <Music /> : <Navigate to="/SignIn" />} />

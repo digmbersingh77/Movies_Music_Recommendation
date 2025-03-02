@@ -1,29 +1,60 @@
-.app{
-  background: linear-gradient(#2d3138,#0056b3,#2d3138);
+/* Background gradient */
+.app {
+  background: linear-gradient(#2d3138, #0056b3, #2d3138);
 }
+
+/* Buttons container */
 .buttons-container {
-    display: flex;
-    justify-content: center; /* Align buttons horizontally in the center */
-    gap: 20px; /* Add space between the buttons */
-    margin-top: 200px; /* Optional: adds some margin above the buttons */
-  }
-  
-  /* Button styling */
-  .button {
-    padding: 10px 20px;
-    font-size: 25px;
-    background-color: #2d3138; 
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 0px 50px;
-  }
-  /* SignInButton.css */
-  
-  .sign-in-button {
-    position: fixed; /* Position fixed to stay in place on scroll */
+  display: flex;
+  justify-content: center; /* Align buttons horizontally in the center */
+  gap: 20px; /* Add space between the buttons */
+  margin-top: 200px; /* Optional: adds some margin above the buttons */
+}
+
+/* Generic button styling */
+.button {
+  padding: 10px 20px;
+  font-size: 25px;
+  background-color: #2d3138;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0px 50px;
+}
+
+/* Hover effect */
+.button:hover {
+  background-color: #b9c2b9;
+}
+
+/* Auth button (Sign In / Sign Out) */
+.auth-button {
+  position: fixed; /* Keep the button fixed on screen */
+  top: 20px; /* Adjust vertical distance from the top */
+  right: 20px; /* Adjust horizontal distance from the right edge */
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Sign In button */
+.sign-in-button {
+  background-color: #007BFF; /* Blue background */
+}
+
+.sign-in-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Sign Out button */
+.sign-out-button {
+  position: fixed; /* Position fixed to stay in place on scroll */
     top: 20px; /* Adjust vertical distance from the top */
     right: 20px; /* Adjust horizontal distance from the right edge */
     padding: 10px 20px;
@@ -34,13 +65,9 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .sign-in-button:hover {
-    background-color: #0056b3; /* Darker blue when hovered */
-  }
-  
-  /* Hover effect */
-  .button:hover {
-    background-color: #b9c2b9;
-  }
+    /* background-color: #FF5733;  */
+}
+
+.sign-out-button:hover {
+  background-color: #C70039; /* Darker red on hover */
+}

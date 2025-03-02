@@ -6,14 +6,21 @@ import bell_icon from '../../Assets/bell_icon.svg'
 import profile_img from '../../Assets/profile_img.png'
 import caret_icon from '../../Assets/caret_icon.svg'
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from "firebase/auth";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const handleSignOut = () => {
-        // Clear any authentication state (e.g., remove token)
-        localStorage.removeItem('authToken'); // Example of removing the token
-        navigate('/'); // Redirect to Sign In page
-      };
+        const auth = getAuth();
+        signOut(auth)
+          .then(() => {
+            localStorage.removeItem("authToken"); // Remove token if stored
+            navigate("/signin"); // Redirect to Sign In page
+          })
+          .catch((error) => {
+            console.error("Sign-out error:", error);
+          });
+    };
   return (
     <div className='navbar'>
         <div className="navbar-left">

@@ -1,84 +1,58 @@
-
-.popup-overlay {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 300px 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    margin-left: 40%;
-  }
-  
-  .popup-content {
-    background: rgb(41, 38, 38);
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 400px;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  .genre-options {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap:30px;
-    margin: 20px 0px;
-    justify-content: center;
-  }
-  
-  .genre-btn {
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .genre-btn.selected {
-    background-color: #373ad6;
-    color: rgb(83, 37, 189);
-  }
-  
-  .genre-btn:hover {
-    background-color: #2e57c7;
-  }
-  
-  .popup-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .save-btn {
-    background-color: #1c19d4;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .save-btn:hover {
-    background-color: #1e0850;
-  }
-  
-  .cancel-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #d32f2f;
-  }
-  
+.hero{
+  position: relative;
+}
+.banner-img{
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 75%);
+  -weblit-mask-image: linear-gradient(to right, transparent, black 75%);
+}
+.hero-caption{
+  position: absolute;
+  width: 100%;
+  padding-left: 6%;
+  bottom: 0;
+}
+.caption-img{
+  width: 90%;
+  max-width: 420px;
+  margin-bottom: 30px;
+}
+.hero-caption p{
+  max-width: 700px;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+.hero-btns{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 50px;
+}
+.hero-btns .btn img{
+  width: 25%;
+}
+.hero-btns .btn{
+  border: 0;
+  outline: 0;
+  padding: 8px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.hero-btns .btn.dark-btn{
+  color: #fff;
+  background: #6d6d6eb3;
+}
+.hero-btns .btn:hover{
+  background: #ffffffbf;
+}
+.hero-btns .btn.dark-btn:hover{
+  background: #6d6d6e66;
+}
+.more-cards{
+  padding-left: 6%;
+}

@@ -27,12 +27,7 @@ const Navbar = () => {
             {/* <img src={logo} alt="" /> */}
             <ul> 
                 <li>Home</li>
-                <li>Tv Shows</li>
-                <li>Tv Shows</li>
-                <li>Movies</li>
-                <li>New & Popular</li>
-                <li>My List</li>
-                <li>Browse</li>
+                <li>Recommendation</li>
             </ul>
         </div>
         <div className="navbar-right">

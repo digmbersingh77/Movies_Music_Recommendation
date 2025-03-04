@@ -10,14 +10,22 @@ import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 // Firebase Configuration
+// const firebaseConfig = {
+//     apiKey: "AIzaSyAN3OxPgMan9m8Lhn3W9bNKhLQUXgoSyvo",
+//     authDomain: "movie-and-music-bcd56.firebaseapp.com",
+//     projectId: "movie-and-music-bcd56",
+//     storageBucket: "movie-and-music-bcd56.appspot.com",
+//     messagingSenderId: "452852437680",
+//     appId: "1:452852437680:web:364011d2b1c5193b436175"
+// };
 const firebaseConfig = {
-    apiKey: "AIzaSyAN3OxPgMan9m8Lhn3W9bNKhLQUXgoSyvo",
-    authDomain: "movie-and-music-bcd56.firebaseapp.com",
-    projectId: "movie-and-music-bcd56",
-    storageBucket: "movie-and-music-bcd56.appspot.com",
-    messagingSenderId: "452852437680",
-    appId: "1:452852437680:web:364011d2b1c5193b436175"
-};
+    apiKey: "AIzaSyARPx-xI8NpXc_ZKIcyeJtaOXwPFE0coRU",
+    authDomain: "movies-and-music-6622d.firebaseapp.com",
+    projectId: "movies-and-music-6622d",
+    storageBucket: "movies-and-music-6622d.firebasestorage.app",
+    messagingSenderId: "134752211588",
+    appId: "1:134752211588:web:fe5ba35d93245f194fe8d1"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

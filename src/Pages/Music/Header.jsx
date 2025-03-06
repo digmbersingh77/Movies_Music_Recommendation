@@ -35,7 +35,7 @@ const Header = () => {
           <div className="Header-left">
               <ul> 
                   <li onClick={() => navigate("/")}>Home</li>
-                  <li onClick={() => navigate("/Recommendation")}>Recommendation</li>
+                  <li onClick={() => navigate("/MusicRecommendation")}>Recommendation</li>
                   {/* <li>Recommendation</li> */}
               </ul>
           </div>

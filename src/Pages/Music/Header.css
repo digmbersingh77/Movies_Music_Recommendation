@@ -1,54 +1,93 @@
-/* src/components/Header.css */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #2e2e2e;
-    color: white;
-  }
-  
-  .header-left {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .search-bar {
-    padding: 8px;
-    width: 250px;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-  }
-  
-  .btn {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background-color: #45a049;
-  }
-  
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-  
+.Header{
+  width: 100%;
+  padding: 20px 6%;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  font-size: 14px;
+  color: #e5e5e5;
+  background-image: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+  z-index: 1;
+}
+
+.Header-left{
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.Header-left img{
+  width: 90px;
+}
+.Header-left ul{
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+.Header-left ul li{
+  cursor: pointer;
+}
+
+.Header-right{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.Header-right .icons{
+  width: 20px;
+  cursor: pointer;
+}
+.Header-right .profile{
+  border-radius: 4px;
+  width: 35px;
+}
+.Header-profile{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.Header .dropdown{
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: max-content;
+  background: #191919;
+  padding: 18px 22px;
+  border-radius: 2px;
+  text-decoration: underline;
+  z-index: 1;
+}
+.Header .dropdown .p{
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.Header-profile:hover .dropdown{
+  display: block;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.search-bar button {
+  padding: 5px 10px; 
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}

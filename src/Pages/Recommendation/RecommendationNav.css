@@ -1,4 +1,4 @@
-.navbar{
+.RecommendationNav{
     width: 100%;
     padding: 20px 6%;
     display: flex;
@@ -10,44 +10,44 @@
     z-index: 1;
 }
 
-.navbar-left{
+.RecommendationNav-left{
     display: flex;
     align-items: center;
     gap: 50px;
 }
-.navbar-left img{
+.RecommendationNav-left img{
     width: 90px;
 }
-.navbar-left ul{
+.RecommendationNav-left ul{
     display: flex;
     list-style: none;
     gap: 20px;
 }
-.navbar-left ul li{
+.RecommendationNav-left ul li{
     cursor: pointer;
 }
 
-.navbar-right{
+.RecommendationNav-right{
     display: flex;
     gap: 20px;
     align-items: center;
 }
-.navbar-right .icons{
+.RecommendationNav-right .icons{
     width: 20px;
     cursor: pointer;
 }
-.navbar-right .profile{
+.RecommendationNav-right .profile{
     border-radius: 4px;
     width: 35px;
 }
-.navbar-profile{
+.RecommendationNav-profile{
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     position: relative;
 }
-.navbar .dropdown{
+.RecommendationNav .dropdown{
     display: none;
     position: absolute;
     top: 100%;
@@ -59,12 +59,12 @@
     text-decoration: underline;
     z-index: 1;
 }
-.navbar .dropdown .p{
+.RecommendationNav .dropdown .p{
     font-size: 13px;
     cursor: pointer;
 }
 
-.navbar-profile:hover .dropdown{
+.RecommendationNav-profile:hover .dropdown{
     display: block;
 }
 .search-bar {

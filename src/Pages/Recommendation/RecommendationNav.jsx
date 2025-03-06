@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './Navbar.css';
+import './RecommendationNav.css';
 import bell_icon from '../../Assets/bell_icon.svg';
 import profile_img from '../../Assets/profile_img.png';
 import caret_icon from '../../Assets/caret_icon.svg';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
 
-const Navbar = () => {
+const RecommendationNav = () => {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -29,15 +29,15 @@ const Navbar = () => {
     };
 
     return (
-        <div className='navbar'>
-            <div className="navbar-left">
+        <div className='RecommendationNav'>
+            <div className="RecommendationNav-left">
                 <ul> 
                     <li onClick={() => navigate("/")}>Home</li>
-                    <li onClick={() => navigate("/Recommendation")}>Recommendation</li>
+                    <li onClick={() => navigate("/Movies")}>Movies</li>
                     {/* <li>Recommendation</li> */}
                 </ul>
             </div>
-            <div className="navbar-right">
+            <div className="RecommendationNav-right">
                 <form onSubmit={handleSearch} className="search-bar">
                     <input 
                         type="text" 
@@ -49,7 +49,7 @@ const Navbar = () => {
                 </form>
                 <p>Children</p>
                 <img src={bell_icon} alt="" className='icons'/>
-                <div className="navbar-profile">
+                <div className="RecommendationNav-profile">
                     <img src={profile_img} alt="" className='profile'/>
                     <img src={caret_icon} alt="" />
                     <div className="dropdown">
@@ -61,4 +61,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default RecommendationNav;

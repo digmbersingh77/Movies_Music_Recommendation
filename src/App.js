@@ -5,6 +5,8 @@ import HomePage from './components/HomePage';
 import SignIn from './Pages/SignIn/SignIn';
 import Movies from './Pages/Movies/Movies';
 import Music from './Pages/Music/Music';
+import Recommendation from './Pages/Recommendation/Recommendation';
+import MovieDetails from './Pages/Recommendation/MovieDetails';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -46,6 +48,9 @@ function AppWithNavigate() {
       <Route path="/SignIn" element={user ? <Navigate to="/" /> : <SignIn />} />
       <Route path="/Movies" element={user ? <Movies /> : <Navigate to="/SignIn" />} />
       <Route path="/Music" element={user ? <Music /> : <Navigate to="/SignIn" />} />
+      <Route path="/Recommendation" element={user ? <Recommendation /> : <Navigate to="/SignIn" />} />
+      <Route path="/MovieDetails" element={user ? <MovieDetails /> : <Navigate to="/SignIn" />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />
     </Routes>
   );
 }

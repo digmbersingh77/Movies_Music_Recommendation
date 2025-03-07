@@ -50,7 +50,7 @@ const TitleCards = ({ title, category, movieId = null, type = 'popular' }) => {
     <div className={`title-cards ${type}`}>
       <h2>{title}</h2>
       {movies.length === 0 ? (
-        <p>Loading movies...</p>
+        <p></p>
       ) : (
         <div className="card-list" ref={cardsRef}>
           {movies.map((movie) => (

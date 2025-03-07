@@ -36,11 +36,11 @@ const Movies = () => {
           <img src={hero_banner} alt="" className='banner-img'/>
           <div className="hero-caption">
             {/* <img src={hero_title} alt="" className='hero-title' /> */}
-            <p>Hello Ji Kesa Ho sare aur kitna ban gaya project aur baki kesa chal rha h project m aur jiven m sab thik</p>
-            <div className="hero-btns">
-              <button className='btn'><img src={play_icon} alt="" />Play</button>
-              <button className='btn dark-btn'><img src={info_icon} alt="" />More Info</button>
-            </div>
+            {/* <p>Hello Ji Kesa Ho sare aur kitna ban gaya project aur baki kesa chal rha h project m aur jiven m sab thik</p> */}
+            {/* <div className="hero-btns">
+              <button className='btn'><img src={play_icon} alt="" />Recommend</button>
+              <button className='btn dark-btn'><img src={info_icon} alt="" />Home Page</button>
+            </div> */}
             <TitleCards/>
           </div>
         </div>

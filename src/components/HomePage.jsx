@@ -1,59 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import Logo from "./Logo";  
 import "./HomePage.css";
+import backgroundImage from "../Assets/Images/Homepage.jpg";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const auth = getAuth();
 
-  // Listen for authentication state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-    return () => unsubscribe(); // Cleanup listener on unmount
+    return () => unsubscribe();
   }, [auth]);
 
-  // Handle Sign In button click
-  const handleSignInClick = () => {
-    navigate("/signin");
+  const handleAuthAction = () => {
+    if (user) {
+      signOut(auth)
+        .then(() => navigate("/signin"))
+        .catch((error) => console.error("Sign-out error:", error));
+    } else {
+      navigate("/signin");
+    }
   };
-
-  // Handle Sign Out button click
-  const handleSignOutClick = () => {
-    signOut(auth)
-      .then(() => {
-        navigate("/signin"); // Redirect to Sign In page
-      })
-      .catch((error) => console.error("Sign-out error:", error));
-  };
-
-  // Handle navigation for Movies & Music
-  const handleMoviesClick = () => navigate("/movies");
-  const handleMusicClick = () => navigate("/music");
 
   return (
-    <div className="App">
-      <Logo />
-      {user ? (
-        <button onClick={handleSignOutClick} className="sign-out-button">
-          Sign Out
+    // <div className="homepage">
+    <div className="homepage" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center", height: "100vh" }}>
+      <header className="header">
+        <button onClick={handleAuthAction} className="auth-button">
+          {user ? "Sign Out" : "Sign In"}
         </button>
-      ) : (
-        <button onClick={handleSignInClick} className="sign-in-button">
-          Sign In
-        </button>
-      )}
-      <div className="content">
-        <h1>Welcome to the Homepage</h1>
-      </div>
-      <div className="buttons-container">
-        <button onClick={handleMoviesClick} className="button">Movies</button>
-        <button onClick={handleMusicClick} className="button">Music</button>
-      </div>
+      </header>
+
+      <section className="hero">
+        <h1>Welcome to Entertainment Hub</h1>
+        <p>Your one-stop destination for Movies & Music</p>
+      </section>
+
+      <section className="explore-section">
+        <div className="card" onClick={() => navigate("/movies")}>
+          <h2>Movies</h2>
+          <p>Explore the latest and greatest movies from around the world.</p>
+          <button className="card-button">Browse Movies</button>
+        </div>
+        <div className="card" onClick={() => navigate("/music")}>
+          <h2>Music</h2>
+          <p>Discover trending tracks and timeless classics.</p>
+          <button className="card-button">Browse Music</button>
+        </div>
+      </section>
     </div>
   );
 };

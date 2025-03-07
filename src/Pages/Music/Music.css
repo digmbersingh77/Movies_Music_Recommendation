@@ -1,87 +1,70 @@
-/* General Styles */
-.app {
+/* Scope styles inside .music-page to avoid affecting navbar */
+.music-page {
   background-color: #121212;
   color: white;
   font-family: 'Poppins', sans-serif;
-  min-height: 100vh;
   padding: 20px;
+  min-height: 100vh;
 }
 
 /* Song Section Styling */
-.song-section {
+.music-page .song-section {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
 }
 
-.song-section h2 {
+.music-page .song-section h2 {
   font-size: 24px;
+  font-weight: 600;
   margin: 20px 0;
-  border-bottom: 2px solid #1DB954;
   padding-bottom: 5px;
+  border-bottom: 3px solid #1DB954;
+  display: inline-block;
 }
 
 /* Song List Grid */
-.song-list {
+.music-page .song-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
 
 /* Song Card */
-.song-card {
+.music-page .song-card {
   background: #181818;
   border-radius: 12px;
   padding: 15px;
   text-align: center;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-.song-card:hover {
+.music-page .song-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 20px rgba(0, 255, 127, 0.3);
 }
 
-.song-card img {
+.music-page .song-card img {
   width: 100%;
   border-radius: 10px;
+  object-fit: cover;
 }
 
-.song-card h3 {
+.music-page .song-card h3 {
   font-size: 16px;
   margin: 10px 0 5px;
   color: #ffffff;
 }
 
-.song-card p {
+.music-page .song-card p {
   font-size: 14px;
   color: #b3b3b3;
 }
 
-/* Header */
-.header {
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
-  padding: 10px;
-  color: #1DB954;
-}
-
-/* Genre Popup */
-.genre-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #282828;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 255, 127, 0.3);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-  .song-list {
+  .music-page .song-list {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }

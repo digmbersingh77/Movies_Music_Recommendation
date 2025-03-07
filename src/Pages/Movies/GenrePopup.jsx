@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './GenrePopup.css';
+import { getAuth } from "firebase/auth";
 
 const GenrePopup = ({ userEmail, onClose, onSave }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const genres = ['Action', 'Adventure', 'Animation', 'Hip-Hop', 'Classical', 'Electronic'];
+  const [isLoading, setIsLoading] = useState(false);
+  const genres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller'];
 
-  // ✅ Fetch user preferences from Flask on mount
+  // ✅ Fetch user preferences from Flask when component mounts
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/get_preferences/${userEmail}`)
+    if (!userEmail) return;
+
+    setIsLoading(true); // Start loading
+
+    fetch(`/get_preferences/${userEmail}`)
       .then((response) => response.json())
-      .then((data) => setSelectedGenres(data.preferences))
-      .catch((error) => console.error("Error fetching preferences:", error));
+      .then((data) => {
+        console.log("Fetched preferences:", data.preferences);
+        setSelectedGenres(data.preferences || []);
+      })
+      .catch((error) => console.error("Error fetching preferences:", error))
+      .finally(() => setIsLoading(false)); // Stop loading
   }, [userEmail]);
 
-  // ✅ Toggle Genre Selection
+  // ✅ Toggle genre selection
   const toggleGenre = (genre) => {
     setSelectedGenres((prev) =>
       prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
@@ -22,40 +32,80 @@ const GenrePopup = ({ userEmail, onClose, onSave }) => {
 
   // ✅ Save Preferences to Flask
   const handleSave = async () => {
-    const response = await fetch("http://127.0.0.1:5000/save_preferences", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail, genres: selectedGenres }),
-    });
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-    const data = await response.json();
-    alert(data.message);  // Show confirmation
-    onSave(selectedGenres);
-    onClose();
-    localStorage.setItem('hasSeenPopup', 'true');
+    if (!user) {
+      alert("Error: User is not signed in.");
+      return;
+    }
+
+    try {
+      setIsLoading(true); // Start loading
+      const idToken = await user.getIdToken(); // ✅ Get Firebase ID Token
+
+      const response = await fetch("/save_preferences", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${idToken}` // ✅ Send token to Flask
+        },
+        body: JSON.stringify({ email: user.email, genres: selectedGenres }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log("✅ Preferences saved:", data);
+        alert("Preferences saved successfully!");
+      } else {
+        console.error("❌ Server error:", data.error);
+        alert(`Error: ${data.error}`);
+      }
+    } catch (error) {
+      console.error("🚨 Fetch error:", error);
+      alert("Network error. Please try again.");
+    } finally {
+      setIsLoading(false); // Stop loading
+      onSave(selectedGenres); // Pass selected genres back to parent
+      onClose(); // Close popup
+    }
   };
+
+  console.log("userEmail before saving:", userEmail);
 
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <h2>Select Your Favorite Genres</h2>
-        <div className="genre-options">
-          {genres.map((genre) => (
-            <button
-              key={genre}
-              className={`genre-btn ${selectedGenres.includes(genre) ? 'selected' : ''}`}
-              onClick={() => toggleGenre(genre)}
-            >
-              {genre}
-            </button>
-          ))}
-        </div>
+        <h2>Select Your Favorite Movie Genres</h2>
+
+        {isLoading ? (
+          <p>Loading...</p> // Show loading text while fetching
+        ) : (
+          <div className="genre-options">
+            {genres.map((genre) => (
+              <button
+                key={genre}
+                className={`genre-btn ${selectedGenres.includes(genre) ? 'selected' : ''}`}
+                onClick={() => toggleGenre(genre)}
+                disabled={isLoading} // Disable buttons while saving
+              >
+                {genre}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="popup-actions">
-          <button onClick={handleSave} className="save-btn">Save</button>
-          <button onClick={onClose} className="cancel-btn">Cancel</button>
+          <button onClick={handleSave} className="save-btn" disabled={isLoading}>
+            {isLoading ? "Saving..." : "Save"}
+          </button>
+          <button onClick={onClose} className="cancel-btn" disabled={isLoading}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
   );
 };
+
 export default GenrePopup;

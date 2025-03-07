@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { login, signup, auth } from '../../firebase';
 import { onAuthStateChanged } from "firebase/auth";
 import './SignIn.css';
+
 const SignIn = () => {
     const [signState, setSignState] = useState("Sign In");
     const [name, setName] = useState(""); 
@@ -11,14 +12,24 @@ const SignIn = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    //Track Firebase Authentication Status
+    // Track Firebase Authentication Status
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 console.log("User is logged in:", user);
+                
+                // ✅ Get Firebase token
+                const idToken = await user.getIdToken();
+                
+                // ✅ Store token in localStorage
+                localStorage.setItem("firebaseToken", idToken);
+                
+                console.log("Firebase token stored:", idToken);
+
                 navigate("/"); 
             }
         });
+
         return () => unsubscribe();  
     }, [navigate]);
 
@@ -27,13 +38,24 @@ const SignIn = () => {
         setLoading(true);
 
         try {
+            let userCredential;
             if (signState === "Sign In") {
-                await login(email, password);
+                userCredential = await login(email, password);
             } else {
-                await signup(name, email, password);
+                userCredential = await signup(name, email, password);
             }
+
+            // ✅ Get Firebase token after login/signup
+            const user = userCredential.user;
+            const idToken = await user.getIdToken();
+
+            // ✅ Store token in localStorage
+            localStorage.setItem("firebaseToken", idToken);
             
+            console.log("User authenticated & token stored:", idToken);
+
             setPassword("");  // ✅ Clear password field
+            navigate("/");
 
         } catch (error) {
             console.error("Authentication error:", error);

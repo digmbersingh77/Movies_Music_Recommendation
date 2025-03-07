@@ -11,7 +11,7 @@ const TitleCards = ({ title, category = 'popular' }) => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch(${BASE_URL}/movie/${category}?api_key=${API_KEY});
+        const response = await fetch(`${BASE_URL}/movie/${category}?api_key=${API_KEY}`);
         const data = await response.json();
         console.log("Fetched Movies:", data); // Debugging
         setMovies(data.results || []);
@@ -21,7 +21,6 @@ const TitleCards = ({ title, category = 'popular' }) => {
     };
     fetchMovies();
   }, [category]);
-  
 
   const handleWheel = (event) => {
     event.preventDefault();
@@ -39,7 +38,7 @@ const TitleCards = ({ title, category = 'popular' }) => {
       <div className="card-list" ref={cardsRef}>
         {movies.map((movie) => (
           <div className="card" key={movie.id}>
-            <img src={https://image.tmdb.org/t/p/w500${movie.poster_path}} alt={movie.title} />
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
             <p>{movie.title}</p>
           </div>
         ))}

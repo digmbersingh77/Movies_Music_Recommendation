@@ -4,7 +4,7 @@ import './TitleCards.css';
 const API_KEY = 'de1daa740b9235540eafe28812be129f';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-const TitleCards = ({ title, category, movieId = null, type = 'popular' }) => {
+const TitleCards = ({ title, category, movieId = null, type = 'popular', onCardClick }) => {
   const [movies, setMovies] = useState([]);
   const cardsRef = useRef();
 
@@ -54,7 +54,11 @@ const TitleCards = ({ title, category, movieId = null, type = 'popular' }) => {
       ) : (
         <div className="card-list" ref={cardsRef}>
           {movies.map((movie) => (
-            <div className={`card card-${type}`} key={movie.id}>
+            <div
+              className={`card card-${type}`}
+              key={movie.id}
+              onClick={() => onCardClick(movie.id)}  // Trigger the onCardClick function
+            >
               <img
                 src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/240x360?text=No+Image'}
                 alt={movie.title}

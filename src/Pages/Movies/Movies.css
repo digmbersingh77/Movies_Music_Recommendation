@@ -1,6 +1,7 @@
 .hero{
     position: relative;
 }
+
 .banner-img{
     width: 100%;
     mask-image: linear-gradient(to right, transparent, black 75%);

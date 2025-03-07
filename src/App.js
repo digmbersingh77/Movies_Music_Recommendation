@@ -10,6 +10,7 @@ import MusicRecommendation from './Pages/Recommendation/MusicRecommendation';
 import MovieDetails from './Pages/Recommendation/MovieDetails';
 import MusicDetails from './Pages/Recommendation/MusicDetails';
 import PlaylistDetails from './Pages/Recommendation/PlaylistDetails';
+import TitleCards from '../src/components/TitleCards/TitleCards';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -47,15 +48,14 @@ function AppWithNavigate() {
   return (
     <Routes>
       <Route path="/" element={user ? <HomePage /> : <Navigate to="/SignIn" />} />
-      {/* <Route path="/signin" element={<SignIn />} /> */}
       <Route path="/SignIn" element={user ? <Navigate to="/" /> : <SignIn />} />
       <Route path="/Movies" element={user ? <Movies /> : <Navigate to="/SignIn" />} />
       <Route path="/Music" element={user ? <Music /> : <Navigate to="/SignIn" />} />
+      <Route path="/TitleCards" element={user ? <TitleCards /> : <Navigate to="/SignIn" />} />
       <Route path="/Recommendation" element={user ? <Recommendation /> : <Navigate to="/SignIn" />} />
       <Route path="/MusicRecommendation" element={user ? <MusicRecommendation /> : <Navigate to="/SignIn" />} />
       <Route path="/MovieDetails" element={user ? <MovieDetails /> : <Navigate to="/SignIn" />} />
-      {/* <Route path="/MovieDetails" element={user ? <MovieDetails /> : <Navigate to="/SignIn" />} /> */}
-      <Route path="/movie/:id" element={<MovieDetails />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />  {/* Dynamic route for movie details */}
       <Route path="/music/:id" element={<MusicDetails />} />
       <Route path="/playlist/:id" element={<PlaylistDetails />} />
     </Routes>

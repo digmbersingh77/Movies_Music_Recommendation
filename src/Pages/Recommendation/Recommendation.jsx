@@ -1,39 +1,108 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Recommendation.css";
-import Navbar from '../../components/Navbar/Navbar'
+import Navbar from '../../components/Navbar/Navbar';
 
-const movies = [
-  { id: 1, name: "Inception", year: 2010, director: "Christopher Nolan", summary: "A thief who enters dreams to steal secrets.", poster: "https://image.tmdb.org/t/p/w500/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg" },
-  { id: 2, name: "Interstellar", year: 2014, director: "Christopher Nolan", summary: "A team of explorers travel through a wormhole in space.", poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" },
-  { id: 3, name: "The Dark Knight", year: 2008, director: "Christopher Nolan", summary: "Batman battles the Joker in Gotham City.", poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" },
-  { id: 4, name: "Avengers: Endgame", year: 2019, director: "Anthony & Joe Russo", summary: "The Avengers assemble to undo Thanos' snap.", poster: "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg" }
-];
+const OMDB_API_KEY = "869ea884";  // Replace with your OMDb API key
+const FLASK_API_URL = "http://127.0.0.1:5000/get_recommendations"; // Flask API Endpoint
 
 const Recommendation = () => {
   const navigate = useNavigate();
-  
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // ✅ Fetch movie IDs from Flask API
+  useEffect(() => {
+    const fetchMovieIds = async () => {
+      try {
+        const response = await fetch(FLASK_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ genres: ["Action", "Adventure"] }), // Ensure genres are sent
+        });
+
+        if (!response.ok) {
+          throw new Error(`Flask API error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log("Received Movie IDs:", data.movie_ids); // Debugging
+
+        if (data.movie_ids && Array.isArray(data.movie_ids) && data.movie_ids.length > 0) {
+          fetchMovieDetails(data.movie_ids);
+        } else {
+          throw new Error("No movie IDs received from Flask.");
+        }
+      } catch (err) {
+        console.error("Error fetching movie IDs:", err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchMovieIds();
+  }, []);
+
+  // ✅ Fetch movie details from OMDb API using IMDb IDs
+  const fetchMovieDetails = async (imdbIds) => {
+    try {
+      const moviePromises = imdbIds.map(async (imdbID) => {
+        const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
+        const data = await response.json();
+
+        if (data.Response === "False") {
+          console.warn(`OMDb API Error for ${imdbID}: ${data.Error}`);
+          return null; // Skip if movie not found
+        }
+
+        return {
+          id: imdbID,
+          name: data.Title || "Unknown Title",
+          poster: data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/200",
+        };
+      });
+
+      const movieResults = (await Promise.all(moviePromises)).filter(Boolean); // Remove null values
+      setMovies(movieResults);
+    } catch (err) {
+      console.error("Error fetching movie details:", err);
+      setError("Error fetching movie details.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="nav-container">
-        <Navbar/>
-        <div className="recommendation-container">
+      <Navbar />
+      <div className="recommendation-container">
         <h2 className="page-title">Movie Recommendations</h2>
-        <div className="movies-grid">
+
+        {loading ? (
+          <p>Loading movies...</p>
+        ) : error ? (
+          <p className="error-message">{error}</p>
+        ) : movies.length > 0 ? (
+          <div className="movies-grid">
             {movies.map((movie) => (
-            <div 
+              <div 
                 key={movie.id} 
                 className="movie-card"
-                onClick={() => navigate(`/movie/${movie.id}`)} // Pass only the ID
-            >
+                onClick={() => navigate(`/movie/${movie.id}`)}
+              >
                 <img src={movie.poster} alt={movie.name} className="movie-poster" />
                 <h3 className="movie-title">{movie.name}</h3>
-            </div>
+              </div>
             ))}
-        </div>
-        </div>
+          </div>
+        ) : (
+          <p>No movies found.</p>
+        )}
+      </div>
     </div>
-
   );
 };
 

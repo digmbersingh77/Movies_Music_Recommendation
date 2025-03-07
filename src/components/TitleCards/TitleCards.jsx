@@ -6,7 +6,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 
 const TitleCards = ({ title, category = 'popular' }) => {
   const [movies, setMovies] = useState([]);
-  const cardsRef = useRef();
+  const cardsRef = useRef(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -24,12 +24,17 @@ const TitleCards = ({ title, category = 'popular' }) => {
 
   const handleWheel = (event) => {
     event.preventDefault();
-    cardsRef.current.scrollLeft += event.deltaY;
+    if (cardsRef.current) {
+      cardsRef.current.scrollLeft += event.deltaY;
+    }
   };
 
   useEffect(() => {
-    cardsRef.current.addEventListener('wheel', handleWheel);
-    return () => cardsRef.current.removeEventListener('wheel', handleWheel);
+    const cardsContainer = cardsRef.current;
+    if (cardsContainer) {
+      cardsContainer.addEventListener('wheel', handleWheel);
+      return () => cardsContainer.removeEventListener('wheel', handleWheel);
+    }
   }, []);
 
   return (
@@ -38,7 +43,10 @@ const TitleCards = ({ title, category = 'popular' }) => {
       <div className="card-list" ref={cardsRef}>
         {movies.map((movie) => (
           <div className="card" key={movie.id}>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+            <img 
+              src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "https://via.placeholder.com/200"} 
+              alt={movie.title} 
+            />
             <p>{movie.title}</p>
           </div>
         ))}

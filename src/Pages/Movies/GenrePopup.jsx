@@ -5,7 +5,9 @@ import { getAuth } from "firebase/auth";
 const GenrePopup = ({ userEmail, onClose, onSave }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const genres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller'];
+  const genres = ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime','Drama','Documentary',
+                  'Family','Fantasy','Film_Noir', 'History','Horror','Mystery','Musical', 'Romance','Sci_Fi',
+                  'Sports', 'Thriller','War','Western'];
 
   // ✅ Fetch user preferences from Flask when component mounts
   useEffect(() => {

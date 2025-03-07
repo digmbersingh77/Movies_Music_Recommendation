@@ -4,45 +4,66 @@ import './TitleCards.css';
 const API_KEY = 'de1daa740b9235540eafe28812be129f';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-const TitleCards = ({ title, category = 'popular' }) => {
+const TitleCards = ({ title, category, movieId = null, type = 'popular' }) => {
   const [movies, setMovies] = useState([]);
   const cardsRef = useRef();
 
   useEffect(() => {
     const fetchMovies = async () => {
+      let url = `${BASE_URL}/movie/${category}?api_key=${API_KEY}&language=en-US&page=1`;
+      
+      if (category === "recommendations" && movieId) {
+        url = `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
+      }
+      
       try {
-        const response = await fetch(`${BASE_URL}/movie/${category}?api_key=${API_KEY}`);
+        const response = await fetch(url);
         const data = await response.json();
-        console.log("Fetched Movies:", data); // Debugging
-        setMovies(data.results || []);
+        if (data.results) {
+          setMovies(data.results);
+        } else {
+          console.error('Invalid API response:', data);
+        }
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
     };
+
     fetchMovies();
-  }, [category]);
+  }, [category, movieId]);
 
   const handleWheel = (event) => {
     event.preventDefault();
-    cardsRef.current.scrollLeft += event.deltaY;
+    if (cardsRef.current) {
+      cardsRef.current.scrollLeft += event.deltaY;
+    }
   };
 
   useEffect(() => {
-    cardsRef.current.addEventListener('wheel', handleWheel);
-    return () => cardsRef.current.removeEventListener('wheel', handleWheel);
+    if (cardsRef.current) {
+      cardsRef.current.addEventListener('wheel', handleWheel);
+      return () => cardsRef.current.removeEventListener('wheel', handleWheel);
+    }
   }, []);
 
   return (
-    <div className='title-cards'>
-      <h2>{title || 'Popular Movies'}</h2>
-      <div className="card-list" ref={cardsRef}>
-        {movies.map((movie) => (
-          <div className="card" key={movie.id}>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-            <p>{movie.title}</p>
-          </div>
-        ))}
-      </div>
+    <div className={`title-cards ${type}`}>
+      <h2>{title}</h2>
+      {movies.length === 0 ? (
+        <p>Loading movies...</p>
+      ) : (
+        <div className="card-list" ref={cardsRef}>
+          {movies.map((movie) => (
+            <div className={`card card-${type}`} key={movie.id}>
+              <img
+                src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/240x360?text=No+Image'}
+                alt={movie.title}
+              />
+              <p>{movie.title}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

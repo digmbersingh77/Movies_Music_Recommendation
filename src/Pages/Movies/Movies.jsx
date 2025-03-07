@@ -44,11 +44,17 @@ const Movies = () => {
             <TitleCards/>
           </div>
         </div>
-        <div className="more-cards">
+        {/* <div className="more-cards">
           <TitleCards title={"Blockbuster Movies"}/>
           <TitleCards title={"Top Pics For You"}/>
           <TitleCards title={"Recommended"}/>
           <TitleCards title={"Upcoming"}/>
+        </div> */}
+         <div>
+          <TitleCards title="Popular Movies" category="popular" />
+          <TitleCards title="Blockbuster Movies" category="top_rated" />
+          <TitleCards title="Top Picks For You" category="now_playing" />
+          <TitleCards title="Upcoming Movies" category="upcoming" />
         </div>
         <Footer/>
     </div>

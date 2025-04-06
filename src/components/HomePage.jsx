@@ -34,7 +34,11 @@ const HomePage = () => {
           {user ? "Sign Out" : "Sign In"}
         </button>
       </header>
-
+      <button 
+  className="navbar-profile-button"
+  onClick={() => navigate('/profile')}>
+    <p> profile</p>
+</button>
       <section className="hero">
         <h1>Welcome to Entertainment Hub</h1>
         <p>Your one-stop destination for Movies & Music</p>

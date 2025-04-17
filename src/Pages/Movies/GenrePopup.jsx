@@ -57,14 +57,14 @@ const GenrePopup = ({ userEmail, onClose, onSave }) => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log("✅ Preferences saved:", data);
+        console.log(" Preferences saved:", data);
         alert("Preferences saved successfully!");
       } else {
-        console.error("❌ Server error:", data.error);
+        console.error(" Server error:", data.error);
         alert(`Error: ${data.error}`);
       }
     } catch (error) {
-      console.error("🚨 Fetch error:", error);
+      console.error(" Fetch error:", error);
       alert("Network error. Please try again.");
     } finally {
       setIsLoading(false); // Stop loading

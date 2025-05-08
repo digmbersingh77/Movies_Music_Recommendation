@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./MusicRecommendation.css";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "./MusicRecommendationNav";
 import { getAccessToken, searchTracksByGenre } from "../Recommendation/Spotify";
 
 const MusicRecommendation = () => {
